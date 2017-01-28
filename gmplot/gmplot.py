@@ -56,15 +56,15 @@ class GoogleMapPlotter(object):
     def directions(self, orig, dest, waypoints):
         self.direction_points.append([orig, dest, waypoints]);
 
-    def scatter(self, lats, lngs, color=None, size=None, marker=True, c=None, s=None, **kwargs):
+    def scatter(self, lats, lngs, titles, labels, color=None, size=None, marker=True, c=None, s=None, **kwargs):
         color = color or c
         size = size or s or 40
         kwargs["color"] = color
         kwargs["size"] = size
         settings = self._process_kwargs(kwargs)
-        for lat, lng in zip(lats, lngs):
+        for lat, lng, title, label in zip(lats, lngs, titles, labels):
             if marker:
-                self.marker(lat, lng, settings['color'])
+                self.marker(lat, lng, settings['color'], title=titles, label=label)
             else:
                 self.circle(lat, lng, size, **settings)
 
